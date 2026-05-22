@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "predeploy": "npm run build && node scripts/create_client_index.cjs",
-    "deploy": "gh-pages -d dist/client"
+    "deploy": "gh-pages -d dist/client",
+    "deploy:manual": "node scripts/deploy_manual.cjs"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",
