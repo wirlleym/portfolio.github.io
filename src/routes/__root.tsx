@@ -1,14 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-  HeadContent,
-  Scripts,
-} from "@tanstack/react-router";
+import { Link, Outlet, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { AppShell } from "../App";
 
 function NotFoundComponent() {
   return (
@@ -74,12 +68,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Wirlley" },
       { name: "description", content: "Portfólio Wirlley" },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "Wirlley" },
       { property: "og:title", content: "Wirlley" },
       { property: "og:description", content: "Portfólio Wirlley" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@GitHub" },
       { name: "twitter:title", content: "Wirlley" },
       { name: "twitter:description", content: "Portfólio Wirlley" },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/809aad8e-ab2e-4b76-99b8-fa942dd942d4" },
@@ -92,25 +86,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
   }),
-  shellComponent: RootShell,
+  shellComponent: AppShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
