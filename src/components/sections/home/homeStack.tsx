@@ -5,7 +5,7 @@ import { SectionHeader, StackGrid } from "./shared";
 export function HomeStack() {
   return (
     <section id="stack" className="relative z-10 mx-auto max-w-6xl px-6 py-20">
-      <SectionHeader index="01" title="Stack Principal" subtitle="Ferramentas que uso em produção" />
+      <SectionHeader index="01" title="Stacks & Arquiteturas" subtitle="Tecnologias do meu ecossistema" />
       <Tabs defaultValue="backend" className="mt-12">
         <TabsList className="flex flex-wrap gap-2 bg-transparent p-0 h-auto">
           {stackCategories.map((category) => (

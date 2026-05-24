@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { stackCategories, projects } from "@/data/home";
+import type { StackItem } from "@/data/home";
 
 export function SectionHeader({ index, title, subtitle }: { index: string; title: string; subtitle: string }) {
   return (
@@ -22,21 +23,40 @@ export function StatCard({ label, value }: { label: string; value: string }) {
   );
 }
 
-export function StackGrid({ items }: { items: Array<(typeof stackCategories)[number]["items"][number]> }) {
+export function StackGrid({ items }: { items: StackItem[] }) {
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-      {items.map((item) => (
-        <StackCard key={item.name} item={item} />
-      ))}
+    <div className="w-full max-w-6xl mx-auto">
+      <div
+        className="grid gap-4 justify-center justify-items-center items-stretch"
+        style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 260px))' }}
+      >
+        {items.map((item) => (
+          <div key={item.name} className="px-1 w-full max-w-[260px]">
+            <StackCard item={item} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-export function StackCard({ item }: { item: (typeof stackCategories)[number]["items"][number] }) {
+export function StackCard({ item }: { item: StackItem }) {
   return (
-    <div className="group glass-card border-gradient relative flex items-center gap-3 rounded-xl px-4 py-4 transition hover:-translate-y-1 hover:glow">
-      <item.icon className="h-4 w-4 text-primary transition group-hover:scale-110" />
-      <span className="font-mono text-sm">{item.name}</span>
+    <div className="group glass-card border-gradient relative flex h-full min-h-[120px] w-full flex-col items-center justify-center gap-3 rounded-xl px-5 py-5 text-center transition-transform duration-200 hover:-translate-y-1 hover:glow">
+      <div className="absolute -inset-0 -z-10 opacity-0 transition group-hover:opacity-100">
+        <div className="absolute -top-6 -right-6 h-28 w-28 rounded-full bg-primary/10 blur-3xl" />
+      </div>
+      <div className="flex items-center justify-center rounded-md bg-background/30 border border-border p-3">
+        <item.icon className="h-5 w-5 text-primary transition-transform group-hover:scale-110" />
+      </div>
+      <div className="mt-3">
+        <div className="font-semibold text-lg text-foreground">{item.name}</div>
+        {item.subtitle ? (
+          <div className="mt-2 whitespace-nowrap text-xs uppercase tracking-[0.24em] text-muted-foreground">
+            {item.subtitle}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

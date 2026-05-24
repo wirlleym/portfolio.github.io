@@ -37,8 +37,7 @@ export function HomeHero() {
           </h1>
 
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Desenvolvedor fullstack com experiência em aplicações web e mobile, APIs REST,
-            sistemas administrativos e integrações VoIP utilizando <span className="text-foreground">Node.js, Laravel, Angular</span> e <span className="text-foreground">Ionic</span>.
+            Desenvolvedor Full Stack especializado na construção de aplicações  <span className="text-foreground">web, mobile, APIs REST</span> e soluções  <span className="text-foreground">VoIP</span>,  com foco em performance, escalabilidade e desenvolvimento de sistemas robustos para produção.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3" id="contact">

@@ -1,47 +1,90 @@
-import { Code2, Cpu, Database, Layers, Lock, Plane, Phone, LineChart, Server, Settings, Smartphone, Sparkles } from "lucide-react";
+import {   
+  Binary,
+  Blocks,
+  Cable,
+  Code2,
+  Component,
+  Cpu,
+  Database,
+  Globe,
+  Layers3,
+  LineChart,
+  Lock,
+  Plane,
+  Phone,
+  Radar,
+  Rocket,
+  ScrollText,
+  Settings,
+  Smartphone,
+  Sparkles,
+  TestTube2,
+  Waypoints, } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
 
-export const stackCategories = [
+export type StackItem = {
+  name: string;
+  subtitle?: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+};
+
+export type StackCategory = {
+  id: string;
+  label: string;
+  items: StackItem[];
+};
+
+export const stackCategories: StackCategory[] = [
+  {
+    id: "database",
+    label: "DATABASE & ORM",
+    items: [
+      { name: "MongoDB", subtitle: "NoSQL Database", icon: Database },
+      { name: "PostgreSQL", subtitle: "Relational Database", icon: Database },
+      { name: "MySQL", subtitle: "Relational Database", icon: Database },
+      { name: "ORM • TypeScript", subtitle: "TypeORM • Prisma", icon: Waypoints }
+    ],
+  },
+
   {
     id: "backend",
     label: "BACKEND",
     items: [
-      { name: "Node.js", icon: Server },
-      { name: "NestJS", icon: Layers },
-      { name: "PHP", icon: Code2 },
-      { name: "Laravel", icon: Code2 },
+      { name: "ExpressJS", subtitle: "Node.js Framework", icon: Rocket },
+      { name: "NestJS", subtitle: "Node.js Architecture", icon: Blocks },
+      { name: "Laravel", subtitle: "PHP Framework", icon: Component },
     ],
   },
-  {
-    id: "sql",
-    label: "SQL",
-    items: [
-      { name: "MongoDB", icon: Database },
-      { name: "PostgreSQL", icon: Database },
-      { name: "MySQL", icon: Database },
-    ],
-  },
+
   {
     id: "frontend",
     label: "FRONTEND",
     items: [
-      { name: "React", icon: Sparkles },
-      { name: "Angular", icon: Cpu },
-      { name: "Ionic", icon: Smartphone },
-      { name: "PrimeNG", icon: Layers },
+      { name: "JavaScript", subtitle: "Vanilla", icon: Code2 },
+      { name: "PrimeNG", subtitle: "Web UI", icon: Layers3 },
+      { name: "React", subtitle: "Web • Mobile • Desktop", icon: Sparkles },
+      { name: "Ionic", subtitle: "Mobile • Desktop", icon: Smartphone },
     ],
   },
+
   {
-    id: "infra",
-    label: "INFRA & INTEGRAÇÕES",
+    id: "testing",
+    label: "API TEST TOOLS",
     items: [
-      { name: "Docker", icon: Layers },
-      { name: "TypeScript", icon: Code2 },
-      { name: "Prisma", icon: Database },
-      { name: "TypeORM", icon: Database },
-      { name: "Swagger", icon: Code2 },
-      { name: "SIP", icon: Phone },
-      { name: "WebSockets", icon: Cpu },
-      { name: "JWT", icon: Lock },
+      { name: "Postman", subtitle: "API Testing", icon: Radar },
+      { name: "Swagger", subtitle: "API Documentation", icon: ScrollText },
+      { name: "Insomnia", subtitle: "API Client", icon: TestTube2 },
+    ],
+  },
+
+  {
+    id: "communication",
+    label: "COMUNICAÇÃO & TEMPO REAL",
+    items: [
+      { name: "Linphone", subtitle: "VoIP Client", icon: Phone },
+      { name: "JS-SIP", subtitle: "SIP over WebSocket", icon: Cable },
+      { name: "SIP.js", subtitle: "WebRTC SIP Library", icon: Globe },
+      { name: "JWT", subtitle: "Authentication & Security", icon: Lock }
     ],
   },
 ];
@@ -49,26 +92,26 @@ export const stackCategories = [
 export const projects = [
   {
     title: "Plataforma Financeira",
-    desc: "Backend desenvolvido com NestJS para gerenciamento de serviços financeiros e APIs REST.",
-    tags: ["NestJS", "PostgreSQL", "TypeORM", "Swagger"],
+    desc: "Desenvolvimento de API REST para serviços financeiros utilizando NestJS, autenticação segura e integração com banco de dados.",
+    tags: ["NestJS", "MySQL", "TypeORM", "Swagger"],
     icon: LineChart,
   },
   {
     title: "Softphone VoIP",
     desc: "Aplicação mobile com Ionic integrada a serviços SIP e comunicação VoIP.",
-    tags: ["Ionic", "SIP", "Mobile"],
+    tags: ["Ionic (Angular)", "SIP", "Plugin Linphone(Java & Objetive-C)"],
     icon: Phone,
   },
   {
-    title: "Sistema Administrativo",
-    desc: "Sistema web utilizando Laravel para gestão administrativa e operacional.",
-    tags: ["PHP", "Docker", "Laravel", "MySQL"],
+    title: "Sistema de Gestão de Softphone",
+    desc: "Plataforma web administrativa desenvolvida para gerenciamento operacional do sistema de softphone.",
+    tags: ["Laravel (PHP)", "MySQL", "Docker"],
     icon: Settings,
   },
   {
-    title: "Sistema Aeronáutico",
-    desc: "Plataforma para gerenciamento de manutenção e lavagem de aeronaves.",
-    tags: ["PHP", "Docker", "Laravel", "MySQL"],
+    title: "Sistema de Gestão Aeronáutica",
+    desc: "Plataforma web administrativa para gerenciamento de manutenção e lavagem de aeronaves.",
+    tags: ["Laravel (PHP)", "MySQL", "Docker"],
     icon: Plane,
   },
 ];

@@ -11,7 +11,7 @@ export function HomeAbout() {
         <div className="md:col-span-2">
           <p className="text-2xl font-light leading-relaxed text-foreground/90 md:text-3xl">
             Atuo no desenvolvimento de aplicações <span className="text-gradient font-medium">web e mobile</span>,
-            APIs REST e sistemas em produção. Tenho experiência com backend utilizando <span className="text-primary">Node.js</span> e <span className="text-primary">Laravel</span>,
+            APIs REST e sistemas em produção. Tenho experiência com backend utilizando <span className="text-primary">Nest (Node.js)</span> e <span className="text-primary">Laravel (PHP)</span>,
             além de frontend com <span className="text-primary">Angular, Ionic</span> e <span className="text-primary">React</span>.
           </p>
         </div>

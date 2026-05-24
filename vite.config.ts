@@ -22,7 +22,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     tsconfigPaths({ projects: ["./tsconfig.json"] }),
-    cloudflare({ viteEnvironment: { name: "ssr" } }),
+    ...(process.env.NODE_ENV === "production" ? [cloudflare({ viteEnvironment: { name: "ssr" } })] : []),
   ],
   resolve: {
     alias: {

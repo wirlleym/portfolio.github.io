@@ -1,47 +1,52 @@
 const fs = require('fs');
 const path = require('path');
+const { pathToFileURL } = require('url');
 
-function createIndex() {
+async function createIndex() {
   const clientDir = path.join(__dirname, '..', 'dist', 'client');
-  const assetsDir = path.join(clientDir, 'assets');
+  const serverEntry = path.join(__dirname, '..', 'dist', 'server', 'index.js');
+
   if (!fs.existsSync(clientDir)) {
     console.error('dist/client not found — run build first');
     process.exit(1);
   }
 
-  let cssFile = null;
-  let jsEntry = null;
+  if (!fs.existsSync(serverEntry)) {
+    console.error('dist/server/index.js not found — run build first');
+    process.exit(1);
+  }
 
-  if (fs.existsSync(assetsDir)) {
-    const files = fs.readdirSync(assetsDir);
-    const cssCandidates = files.filter((f) => /^styles-.*\.css$/.test(f));
-    const jsCandidates = files.filter((f) => /^index-.*\.js$/.test(f));
+  const serverModule = await import(pathToFileURL(serverEntry).href);
+  const serverWorker = serverModule.default;
 
-    if (cssCandidates.length) cssFile = cssCandidates[0];
+  if (!serverWorker || typeof serverWorker.fetch !== 'function') {
+    console.error('Built server entry does not export a fetch handler');
+    process.exit(1);
+  }
 
-    if (jsCandidates.length) {
-      jsCandidates.sort((a, b) => b.length - a.length);
-      jsEntry = jsCandidates[0];
+  const requestUrl = 'https://example.com/portfolio/';
+  let response = await serverWorker.fetch(new Request(requestUrl));
+
+  if (response.status >= 300 && response.status < 400) {
+    const location = response.headers.get('location');
+    if (location) {
+      response = await serverWorker.fetch(new Request(location, requestUrl));
     }
   }
 
-  const indexHtml = `<!doctype html>
-<html lang="pt-br">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Wirlley Melo</title>
-    <link rel="icon" href="./favicon.ico" />
-    ${cssFile ? `<link rel="stylesheet" href="./assets/${cssFile}" />` : ''}
-  </head>
-  <body>
-    <div id="root"></div>
-    ${jsEntry ? `<script type="module" src="./assets/${jsEntry}"></script>` : ''}
-  </body>
-</html>`;
+  if (response.status !== 200) {
+    console.error(`Server-rendered HTML request failed with status ${response.status}`);
+    const text = await response.text();
+    console.error(text.slice(0, 1000));
+    process.exit(1);
+  }
 
-  fs.writeFileSync(path.join(clientDir, 'index.html'), indexHtml, 'utf8');
+  const html = await response.text();
+  fs.writeFileSync(path.join(clientDir, 'index.html'), html, 'utf8');
   console.log('Created dist/client/index.html');
 }
 
-createIndex();
+createIndex().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
